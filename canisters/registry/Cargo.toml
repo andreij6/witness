@@ -1,0 +1,40 @@
+[package]
+name = "witness-registry"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+dev-attestation = ["witness-attest/dev-attestation"]
+
+[dependencies]
+witness-canister-common = { workspace = true }
+witness-format = { workspace = true }
+candid = { workspace = true }
+ic-cdk = { workspace = true }
+ic-cdk-timers = { workspace = true }
+ic-cdk-management-canister = "0.2.0"
+ic-stable-structures = { workspace = true }
+serde = { workspace = true }
+serde_bytes = { workspace = true }
+witness-merkle = { workspace = true }
+witness-attest = { workspace = true }
+witness-c2pa = { workspace = true }
+
+[dev-dependencies]
+candid_parser = { workspace = true }
+pocket-ic = { workspace = true }
+ic-certification = { workspace = true }
+witness-core = { workspace = true }
+witness-verdict = { workspace = true, features = ["testkit"] }
+p256 = { version = "0.13.2", default-features = false, features = ["ecdsa"] }
+ed25519-dalek = { version = "2.2.0", default-features = false }
+serde_cbor = "0.11.2"
+ic-verify-bls-signature = { version = "0.6.0", default-features = false }

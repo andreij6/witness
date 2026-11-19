@@ -1,0 +1,324 @@
+{
+  "id": "property_damage",
+  "title": "Property damage",
+  "subtitle": "Source, affected areas, repair notes",
+  "keywords": [
+    "water",
+    "leak",
+    "flood",
+    "pipe",
+    "ceiling",
+    "fire",
+    "storm",
+    "hail",
+    "mold",
+    "damage"
+  ],
+  "surfaceId": "report",
+  "slots": [
+    {
+      "id": "damage_source",
+      "type": "choice",
+      "hint": "What caused the damage",
+      "choices": [
+        "water",
+        "storm",
+        "fire",
+        "other"
+      ]
+    },
+    {
+      "id": "ongoing",
+      "type": "choice",
+      "hint": "Is the damage still happening",
+      "choices": [
+        "no",
+        "yes",
+        "unsure"
+      ]
+    },
+    {
+      "id": "affected_areas",
+      "type": "text",
+      "hint": "Rooms and surfaces affected",
+      "maxLength": 200
+    },
+    {
+      "id": "repair_notes",
+      "type": "text",
+      "hint": "Repairs done or needed",
+      "maxLength": 400
+    },
+    {
+      "id": "summary",
+      "type": "text",
+      "hint": "Neutral first-person summary of what happened",
+      "maxLength": 600
+    },
+    {
+      "id": "ev_wide_room",
+      "type": "flag",
+      "hint": "True when the evidence photos already cover this"
+    },
+    {
+      "id": "ev_source_closeup",
+      "type": "flag",
+      "hint": "True when the evidence photos already cover this"
+    },
+    {
+      "id": "ev_damage_closeup",
+      "type": "flag",
+      "hint": "True when the evidence photos already cover this"
+    },
+    {
+      "id": "ev_serial_or_receipt",
+      "type": "flag",
+      "hint": "True when the evidence photos already cover this"
+    }
+  ],
+  "messages": [
+    {
+      "version": "v0.9.1",
+      "createSurface": {
+        "surfaceId": "report",
+        "catalogId": "https://witness.app/a2ui/catalog/v1.json"
+      }
+    },
+    {
+      "version": "v0.9.1",
+      "updateComponents": {
+        "surfaceId": "report",
+        "components": [
+          {
+            "id": "root",
+            "component": "Column",
+            "children": [
+              "checklist",
+              "details",
+              "areas",
+              "repairs",
+              "summary"
+            ]
+          },
+          {
+            "id": "checklist",
+            "component": "EvidenceChecklist",
+            "title": "Still recommended",
+            "items": [
+              {
+                "key": "wide_room",
+                "label": "Wide shot of the affected room",
+                "done": {
+                  "path": "/slots/ev_wide_room"
+                },
+                "meta": {
+                  "path": "/evidence/wide_room"
+                },
+                "action": {
+                  "event": {
+                    "name": "capture_for",
+                    "context": {
+                      "target": "wide_room"
+                    }
+                  }
+                }
+              },
+              {
+                "key": "source_closeup",
+                "label": "Close-up of the source",
+                "done": {
+                  "path": "/slots/ev_source_closeup"
+                },
+                "meta": {
+                  "path": "/evidence/source_closeup"
+                },
+                "action": {
+                  "event": {
+                    "name": "capture_for",
+                    "context": {
+                      "target": "source_closeup"
+                    }
+                  }
+                }
+              },
+              {
+                "key": "damage_closeup",
+                "label": "Close-up of the damage",
+                "done": {
+                  "path": "/slots/ev_damage_closeup"
+                },
+                "meta": {
+                  "path": "/evidence/damage_closeup"
+                },
+                "action": {
+                  "event": {
+                    "name": "capture_for",
+                    "context": {
+                      "target": "damage_closeup"
+                    }
+                  }
+                }
+              },
+              {
+                "key": "serial_or_receipt",
+                "label": "Serial number or receipt",
+                "done": {
+                  "path": "/slots/ev_serial_or_receipt"
+                },
+                "meta": {
+                  "path": "/evidence/serial_or_receipt"
+                },
+                "action": {
+                  "event": {
+                    "name": "capture_for",
+                    "context": {
+                      "target": "serial_or_receipt"
+                    }
+                  }
+                }
+              }
+            ],
+            "flagAction": {
+              "event": {
+                "name": "flag",
+                "context": {
+                  "target": "checklist"
+                }
+              }
+            }
+          },
+          {
+            "id": "details",
+            "component": "GeneratedSurface",
+            "heading": "Damage details",
+            "tag": "Generated form",
+            "children": [
+              "source",
+              "ongoing"
+            ]
+          },
+          {
+            "id": "source",
+            "component": "ChoiceRow",
+            "label": "Source",
+            "value": {
+              "path": "/slots/damage_source"
+            },
+            "options": [
+              {
+                "value": "water",
+                "label": "Water"
+              },
+              {
+                "value": "storm",
+                "label": "Storm"
+              },
+              {
+                "value": "fire",
+                "label": "Fire"
+              },
+              {
+                "value": "other",
+                "label": "Other"
+              }
+            ]
+          },
+          {
+            "id": "ongoing",
+            "component": "ChoiceRow",
+            "label": "Still happening?",
+            "value": {
+              "path": "/slots/ongoing"
+            },
+            "options": [
+              {
+                "value": "no",
+                "label": "No"
+              },
+              {
+                "value": "yes",
+                "label": "Yes"
+              },
+              {
+                "value": "unsure",
+                "label": "Not sure"
+              }
+            ]
+          },
+          {
+            "id": "areas",
+            "component": "SummaryDraft",
+            "title": "Affected areas",
+            "text": {
+              "path": "/slots/affected_areas"
+            },
+            "editAction": {
+              "event": {
+                "name": "edit",
+                "context": {
+                  "target": "affected_areas"
+                }
+              }
+            },
+            "flagAction": {
+              "event": {
+                "name": "flag",
+                "context": {
+                  "target": "affected_areas"
+                }
+              }
+            }
+          },
+          {
+            "id": "repairs",
+            "component": "SummaryDraft",
+            "title": "Repair notes",
+            "text": {
+              "path": "/slots/repair_notes"
+            },
+            "editAction": {
+              "event": {
+                "name": "edit",
+                "context": {
+                  "target": "repair_notes"
+                }
+              }
+            },
+            "flagAction": {
+              "event": {
+                "name": "flag",
+                "context": {
+                  "target": "repair_notes"
+                }
+              }
+            }
+          },
+          {
+            "id": "summary",
+            "component": "SummaryDraft",
+            "title": "Draft summary",
+            "text": {
+              "path": "/slots/summary"
+            },
+            "editAction": {
+              "event": {
+                "name": "edit",
+                "context": {
+                  "target": "summary"
+                }
+              }
+            },
+            "flagAction": {
+              "event": {
+                "name": "flag",
+                "context": {
+                  "target": "summary"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

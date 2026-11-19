@@ -1,0 +1,143 @@
+type Security = variant { StrongBox; Tee; Dev };
+type Prov = variant { Rkp; Factory; Dev };
+type Fresh = variant { Fresh; Late };
+type KeyStatus = variant { Active; Retired; Suspended; Revoked };
+type StatusChange = record { status : KeyStatus; since_ns : nat64 };
+type KeyInfo = record {
+  key_id : blob;
+  pubkey : blob;
+  security : Security;
+  provisioning : Prov;
+  freshness : Fresh;
+  patch : nat32;
+  enrolled_ns : nat64;
+  active_until_ns : nat64;
+  history : vec StatusChange;
+  chain_serials : vec text;
+};
+type Submission = record { claim : blob; c2pa_claim : blob; cose : blob; fingerprints : opt blob };
+type Anchored = record { record_ix : nat64; record_id : text; anchored_ns : nat64; media_shard : nat8 };
+type SubmitErr = variant {
+  malformed : text;
+  too_large;
+  bad_signature;
+  unknown_key;
+  key_distrusted;
+  key_expired;
+  counter_reused;
+  parent_unknown;
+  fingerprint_mismatch;
+  retry_after_ns : nat64;
+};
+type SubmitResult = variant { ok : Anchored; dup : Anchored; err : SubmitErr };
+type CertifiedRecord = record {
+  record_ix : nat64;
+  record_id : text;
+  claim : blob;
+  c2pa_claim : blob;
+  cose : blob;
+  anchored_ns : nat64;
+  mmr_proof : vec blob;
+  leaf_count : nat64;
+  certificate : blob;
+  media_shard : nat8;
+};
+type CertifiedKey = record { key : KeyInfo; smt_proof : blob; certificate : blob };
+type ShardInfo = record { shard : nat8; canister : principal; open : bool };
+type Shards = record { index : vec ShardInfo; media : vec ShardInfo };
+type EraseAuth = variant { device : blob; ii };
+type EraseRequest = record { record_id : text; nonce : blob; auth : EraseAuth };
+type Posting = record {
+  record_ix : nat64;
+  wm_root : nat64;
+  asset_hash : blob;
+  pixel_hash : blob;
+  fingerprints : opt blob;
+  root_ix : opt nat64;
+};
+type PdqHit = record { record_ix : nat64; distance : nat32 };
+type ProbeResult = record {
+  pdq : vec PdqHit;
+  watermark : vec nat64;
+  exact : vec nat64;
+  truncated_candidates : bool;
+  indexed_upto : nat64;
+};
+type Fingerprints = record { grid : blob; shapes : vec record { nat8; blob }; quality : nat8; portrait : bool };
+type Tier = variant { Plus };
+type EntitlementGrant = record {
+  ii_principal : principal;
+  tier : Tier;
+  quota_bytes : nat64;
+  expires_ns : nat64;
+  signature : blob;
+};
+type UploadTarget = variant {
+  preview : text;
+  og : text;
+  full : text;
+  case_chunk : record { case_id : text; ix : nat32; count : nat32 };
+};
+type BeginUpload = record {
+  target : UploadTarget;
+  size : nat64;
+  sha256 : blob;
+  key_id : blob;
+  signature : blob;
+  grant : opt EntitlementGrant;
+};
+type CaseInfo = record { expires_ns : nat64; bytes : nat64; chunks : nat32 };
+type Chunk = record { upload : nat64; ix : nat32; bytes : blob };
+type MediaErr = variant {
+  malformed : text;
+  unauthorized;
+  not_found;
+  too_large;
+  quota_exceeded;
+  grant_invalid;
+  bad_chunk;
+  hash_mismatch;
+  incomplete;
+  retry_after_ns : nat64;
+};
+type TimerStatus = record { name : text; period_ns : nat64; last_run_ns : nat64; runs : nat64 };
+type Status = record {
+  version : text;
+  cycles : nat;
+  stable_bytes : nat64;
+  timers : vec TimerStatus;
+  metrics : vec record { text; nat64 };
+  flags : vec text;
+};
+type RegistryInit = record { index : vec principal; media : vec principal; pages : principal };
+type Origins = record { site : text; case : text; app : text; api : text; canister : text };
+type PeerInit = record { registry : principal; shard : nat8; origins : opt Origins };
+type Shell = record {
+  record_id : text;
+  record_ix : nat64;
+  anchored_ns : nat64;
+  claim : blob;
+  media_shard : nat8;
+  media : principal;
+  dev : bool;
+};
+type Removal = variant { erased; takedown; revoked };
+type PageErr = variant { malformed : text; gone };
+type PageResult = variant { ok : text; err : PageErr };
+type Allow = variant {
+  key : record { key_id : blob; pubkey : blob };
+  "record" : record { record_id : text; key_id : blob };
+  revoke : blob;
+};
+type IndexPeer = service {
+  put : (vec Posting) -> ();
+  erase : (nat64) -> ();
+};
+type PagesPeer = service {
+  put_shell : (vec Shell) -> (vec PageResult);
+  tombstone : (vec text, Removal) -> (vec PageResult);
+};
+type MediaPeer = service {
+  sync : (vec Allow) -> (nat32);
+  erase : (text) -> (variant { Ok : nat32; Err : MediaErr });
+};

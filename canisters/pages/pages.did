@@ -1,0 +1,58 @@
+type HttpRequest = record {
+  url : text;
+  method : text;
+  body : blob;
+  headers : vec record { text; text };
+  certificate_version : opt nat16;
+};
+type HttpResponse = record {
+  body : blob;
+  headers : vec record { text; text };
+  upgrade : opt bool;
+  status_code : nat16;
+};
+type Origins = record {
+  api : text;
+  app : text;
+  case : text;
+  site : text;
+  canister : text;
+};
+type PageErr = variant { malformed : text; gone };
+type PageResult = variant { ok : text; err : PageErr };
+type PeerInit = record {
+  origins : opt Origins;
+  shard : nat8;
+  registry : principal;
+};
+type Pin = record { sri : text; path : text };
+type Removal = variant { revoked; erased; takedown };
+type Shell = record {
+  dev : bool;
+  media : principal;
+  claim : blob;
+  anchored_ns : nat64;
+  media_shard : nat8;
+  record_id : text;
+  record_ix : nat64;
+};
+type Status = record {
+  flags : vec text;
+  timers : vec TimerStatus;
+  metrics : vec record { text; nat64 };
+  version : text;
+  cycles : nat;
+  stable_bytes : nat64;
+};
+type TimerStatus = record {
+  name : text;
+  runs : nat64;
+  period_ns : nat64;
+  last_run_ns : nat64;
+};
+service : (PeerInit, opt vec Pin) -> {
+  http_request : (HttpRequest) -> (HttpResponse) query;
+  put_shell : (vec Shell) -> (vec PageResult);
+  status : () -> (Status) query;
+  tombstone : (vec text, Removal) -> (vec PageResult);
+}

@@ -1,0 +1,73 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/witness-format",
+    "crates/witness-image",
+    "crates/witness-fingerprint",
+    "crates/witness-match",
+    "crates/witness-c2pa",
+    "crates/witness-merkle",
+    "crates/witness-attest",
+    "crates/witness-watermark",
+    "crates/witness-verdict",
+    "crates/witness-core",
+    "crates/witness-proof",
+    "crates/witness-web",
+    "canisters/common",
+    "canisters/registry",
+    "canisters/index",
+    "canisters/pages",
+    "canisters/media",
+    "crates/witness-android",
+    "tools/witness-smoke",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+license = "Apache-2.0"
+
+[workspace.dependencies]
+witness-format = { path = "crates/witness-format" }
+witness-image = { path = "crates/witness-image" }
+witness-fingerprint = { path = "crates/witness-fingerprint" }
+witness-match = { path = "crates/witness-match" }
+witness-c2pa = { path = "crates/witness-c2pa" }
+witness-merkle = { path = "crates/witness-merkle" }
+witness-attest = { path = "crates/witness-attest" }
+witness-watermark = { path = "crates/witness-watermark" }
+witness-verdict = { path = "crates/witness-verdict" }
+witness-core = { path = "crates/witness-core" }
+witness-proof = { path = "crates/witness-proof" }
+witness-canister-common = { path = "canisters/common" }
+ic-cdk = "0.20.3"
+ic-cdk-timers = "1.0.0"
+ic-stable-structures = "0.7.2"
+candid = "0.10.41"
+candid_parser = "0.4"
+ic-certification = "4.0.1"
+ic-http-certification = "4.0.1"
+serde = { version = "1.0.219", features = ["derive"] }
+serde_bytes = "0.11.19"
+pocket-ic = "16.1.0"
+
+[workspace.lints.rust]
+unsafe_code = "deny"
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+panic = "abort"
+
+[profile.wasm]
+inherits = "release"
+opt-level = "s"
+lto = "fat"
+
+[profile.dev.package."*"]
+opt-level = 2

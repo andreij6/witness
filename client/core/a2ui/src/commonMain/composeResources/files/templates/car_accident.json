@@ -1,0 +1,321 @@
+{
+  "id": "car_accident",
+  "title": "Car accident",
+  "subtitle": "Plates, damage, other driver, injuries",
+  "keywords": [
+    "car",
+    "crash",
+    "accident",
+    "collision",
+    "fender",
+    "bumper",
+    "license plate",
+    "vehicle",
+    "traffic"
+  ],
+  "surfaceId": "report",
+  "slots": [
+    {
+      "id": "impact_point",
+      "type": "choice",
+      "hint": "Where your car was hit",
+      "choices": [
+        "front_driver",
+        "front_center",
+        "front_passenger",
+        "side_driver",
+        "side_passenger",
+        "rear_driver",
+        "rear_center",
+        "rear_passenger"
+      ]
+    },
+    {
+      "id": "impact_source",
+      "type": "text",
+      "hint": "Short provenance, e.g. Detected from photo 2",
+      "maxLength": 60
+    },
+    {
+      "id": "other_plate",
+      "type": "plate",
+      "hint": "The other driver's license plate"
+    },
+    {
+      "id": "plate_source",
+      "type": "text",
+      "hint": "Short provenance, e.g. Read from photo 3",
+      "maxLength": 60
+    },
+    {
+      "id": "injured",
+      "type": "choice",
+      "hint": "Was anyone injured",
+      "choices": [
+        "no",
+        "yes",
+        "unsure"
+      ]
+    },
+    {
+      "id": "summary",
+      "type": "text",
+      "hint": "Neutral first-person summary of what happened",
+      "maxLength": 600
+    },
+    {
+      "id": "ev_damage_closeup",
+      "type": "flag",
+      "hint": "True when the evidence photos already cover this"
+    },
+    {
+      "id": "ev_both_plates",
+      "type": "flag",
+      "hint": "True when the evidence photos already cover this"
+    },
+    {
+      "id": "ev_wide_shot",
+      "type": "flag",
+      "hint": "True when the evidence photos already cover this"
+    },
+    {
+      "id": "ev_insurance_card",
+      "type": "flag",
+      "hint": "True when the evidence photos already cover this"
+    }
+  ],
+  "messages": [
+    {
+      "version": "v0.9.1",
+      "createSurface": {
+        "surfaceId": "report",
+        "catalogId": "https://witness.app/a2ui/catalog/v1.json"
+      }
+    },
+    {
+      "version": "v0.9.1",
+      "updateComponents": {
+        "surfaceId": "report",
+        "components": [
+          {
+            "id": "root",
+            "component": "Column",
+            "children": [
+              "checklist",
+              "details",
+              "summary"
+            ]
+          },
+          {
+            "id": "checklist",
+            "component": "EvidenceChecklist",
+            "title": "Still recommended",
+            "items": [
+              {
+                "key": "damage_closeup",
+                "label": "Damage close-up",
+                "done": {
+                  "path": "/slots/ev_damage_closeup"
+                },
+                "meta": {
+                  "path": "/evidence/damage_closeup"
+                },
+                "action": {
+                  "event": {
+                    "name": "capture_for",
+                    "context": {
+                      "target": "damage_closeup"
+                    }
+                  }
+                }
+              },
+              {
+                "key": "both_plates",
+                "label": "Both license plates",
+                "done": {
+                  "path": "/slots/ev_both_plates"
+                },
+                "meta": {
+                  "path": "/evidence/both_plates"
+                },
+                "action": {
+                  "event": {
+                    "name": "capture_for",
+                    "context": {
+                      "target": "both_plates"
+                    }
+                  }
+                }
+              },
+              {
+                "key": "wide_shot",
+                "label": "Wide shot of both cars",
+                "done": {
+                  "path": "/slots/ev_wide_shot"
+                },
+                "meta": {
+                  "path": "/evidence/wide_shot"
+                },
+                "action": {
+                  "event": {
+                    "name": "capture_for",
+                    "context": {
+                      "target": "wide_shot"
+                    }
+                  }
+                }
+              },
+              {
+                "key": "insurance_card",
+                "label": "Other driver's insurance card",
+                "done": {
+                  "path": "/slots/ev_insurance_card"
+                },
+                "meta": {
+                  "path": "/evidence/insurance_card"
+                },
+                "action": {
+                  "event": {
+                    "name": "capture_for",
+                    "context": {
+                      "target": "insurance_card"
+                    }
+                  }
+                }
+              }
+            ],
+            "flagAction": {
+              "event": {
+                "name": "flag",
+                "context": {
+                  "target": "checklist"
+                }
+              }
+            }
+          },
+          {
+            "id": "details",
+            "component": "GeneratedSurface",
+            "heading": "Accident details",
+            "tag": "Generated form",
+            "children": [
+              "impact",
+              "plate",
+              "injured"
+            ]
+          },
+          {
+            "id": "impact",
+            "component": "ImpactDiagram",
+            "label": "Impact point",
+            "value": {
+              "path": "/slots/impact_point"
+            },
+            "caption": {
+              "path": "/slots/impact_source"
+            },
+            "options": [
+              {
+                "value": "front_driver",
+                "label": "Front, driver side"
+              },
+              {
+                "value": "front_center",
+                "label": "Front, center"
+              },
+              {
+                "value": "front_passenger",
+                "label": "Front, passenger side"
+              },
+              {
+                "value": "side_driver",
+                "label": "Driver side"
+              },
+              {
+                "value": "side_passenger",
+                "label": "Passenger side"
+              },
+              {
+                "value": "rear_driver",
+                "label": "Rear, driver side"
+              },
+              {
+                "value": "rear_center",
+                "label": "Rear, center"
+              },
+              {
+                "value": "rear_passenger",
+                "label": "Rear, passenger side"
+              }
+            ],
+            "flagAction": {
+              "event": {
+                "name": "flag",
+                "context": {
+                  "target": "impact_point"
+                }
+              }
+            }
+          },
+          {
+            "id": "plate",
+            "component": "PlateField",
+            "label": "Other driver's plate",
+            "value": {
+              "path": "/slots/other_plate"
+            },
+            "caption": {
+              "path": "/slots/plate_source"
+            }
+          },
+          {
+            "id": "injured",
+            "component": "ChoiceRow",
+            "label": "Anyone injured?",
+            "value": {
+              "path": "/slots/injured"
+            },
+            "options": [
+              {
+                "value": "no",
+                "label": "No"
+              },
+              {
+                "value": "yes",
+                "label": "Yes"
+              },
+              {
+                "value": "unsure",
+                "label": "Not sure"
+              }
+            ]
+          },
+          {
+            "id": "summary",
+            "component": "SummaryDraft",
+            "title": "Draft summary",
+            "text": {
+              "path": "/slots/summary"
+            },
+            "editAction": {
+              "event": {
+                "name": "edit",
+                "context": {
+                  "target": "summary"
+                }
+              }
+            },
+            "flagAction": {
+              "event": {
+                "name": "flag",
+                "context": {
+                  "target": "summary"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "name": "witness-bridges",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./icp.mjs": "./icp.mjs",
+    "./idl.mjs": "./idl.mjs",
+    "./wire.mjs": "./wire.mjs",
+    "./verify.mjs": "./verify.mjs",
+    "./crypto.mjs": "./crypto.mjs",
+    "./image.mjs": "./image.mjs",
+    "./witness.mjs": "./witness.mjs",
+    "./engine.mjs": "./engine.mjs",
+    "./config.mjs": "./config.mjs",
+    "./candid.mjs": "./candid.mjs"
+  },
+  "files": [
+    "*.mjs",
+    "wasm/*"
+  ],
+  "scripts": {
+    "test": "node --test test/",
+    "wasm": "./build-wasm.sh"
+  },
+  "dependencies": {
+    "@icp-sdk/core": "6.1.1",
+    "onnxruntime-web": "1.31.1"
+  }
+}

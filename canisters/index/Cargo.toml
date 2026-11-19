@@ -1,0 +1,30 @@
+[package]
+name = "witness-index"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+witness-canister-common = { workspace = true }
+witness-format = { workspace = true }
+candid = { workspace = true }
+ic-cdk = { workspace = true }
+ic-cdk-timers = { workspace = true }
+ic-stable-structures = { workspace = true }
+serde = { workspace = true }
+serde_bytes = { workspace = true }
+witness-fingerprint = { workspace = true }
+
+[features]
+bench = []
+
+[dev-dependencies]
+candid_parser = { workspace = true }
+pocket-ic = { workspace = true }

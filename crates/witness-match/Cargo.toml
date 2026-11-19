@@ -1,0 +1,12 @@
+[package]
+name = "witness-match"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+witness-image = { workspace = true }

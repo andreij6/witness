@@ -1,0 +1,29 @@
+[package]
+name = "witness-verdict"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+testkit = ["dep:p256", "dep:ed25519-dalek"]
+
+[dependencies]
+witness-format.workspace = true
+witness-image.workspace = true
+witness-fingerprint.workspace = true
+witness-match.workspace = true
+witness-c2pa.workspace = true
+witness-watermark.workspace = true
+p256 = { version = "0.13.2", default-features = false, features = ["ecdsa"], optional = true }
+ed25519-dalek = { version = "2.2.0", default-features = false, optional = true }
+
+[dev-dependencies]
+p256 = { version = "0.13.2", default-features = false, features = ["ecdsa"] }
+ed25519-dalek = { version = "2.2.0", default-features = false }
+
+[target.'cfg(target_arch = "wasm32")'.dev-dependencies]
+wasm-bindgen-test = "=0.3.80"

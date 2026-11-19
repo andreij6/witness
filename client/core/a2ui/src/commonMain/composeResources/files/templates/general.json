@@ -1,0 +1,148 @@
+{
+  "id": "general",
+  "title": "Other",
+  "subtitle": "Plain checklist, no form",
+  "keywords": [],
+  "surfaceId": "report",
+  "slots": [
+    {
+      "id": "summary",
+      "type": "text",
+      "hint": "Neutral first-person summary of what the photos show",
+      "maxLength": 600
+    },
+    {
+      "id": "ev_wide",
+      "type": "flag",
+      "hint": "True when the evidence photos already cover this"
+    },
+    {
+      "id": "ev_closeup",
+      "type": "flag",
+      "hint": "True when the evidence photos already cover this"
+    },
+    {
+      "id": "ev_landmark",
+      "type": "flag",
+      "hint": "True when the evidence photos already cover this"
+    }
+  ],
+  "messages": [
+    {
+      "version": "v0.9.1",
+      "createSurface": {
+        "surfaceId": "report",
+        "catalogId": "https://witness.app/a2ui/catalog/v1.json"
+      }
+    },
+    {
+      "version": "v0.9.1",
+      "updateComponents": {
+        "surfaceId": "report",
+        "components": [
+          {
+            "id": "root",
+            "component": "Column",
+            "children": [
+              "checklist",
+              "summary"
+            ]
+          },
+          {
+            "id": "checklist",
+            "component": "EvidenceChecklist",
+            "title": "Still recommended",
+            "items": [
+              {
+                "key": "wide",
+                "label": "Wide shot for context",
+                "done": {
+                  "path": "/slots/ev_wide"
+                },
+                "meta": {
+                  "path": "/evidence/wide"
+                },
+                "action": {
+                  "event": {
+                    "name": "capture_for",
+                    "context": {
+                      "target": "wide"
+                    }
+                  }
+                }
+              },
+              {
+                "key": "closeup",
+                "label": "Close-up of the detail",
+                "done": {
+                  "path": "/slots/ev_closeup"
+                },
+                "meta": {
+                  "path": "/evidence/closeup"
+                },
+                "action": {
+                  "event": {
+                    "name": "capture_for",
+                    "context": {
+                      "target": "closeup"
+                    }
+                  }
+                }
+              },
+              {
+                "key": "landmark",
+                "label": "Something that shows the place",
+                "done": {
+                  "path": "/slots/ev_landmark"
+                },
+                "meta": {
+                  "path": "/evidence/landmark"
+                },
+                "action": {
+                  "event": {
+                    "name": "capture_for",
+                    "context": {
+                      "target": "landmark"
+                    }
+                  }
+                }
+              }
+            ],
+            "flagAction": {
+              "event": {
+                "name": "flag",
+                "context": {
+                  "target": "checklist"
+                }
+              }
+            }
+          },
+          {
+            "id": "summary",
+            "component": "SummaryDraft",
+            "title": "Draft summary",
+            "text": {
+              "path": "/slots/summary"
+            },
+            "editAction": {
+              "event": {
+                "name": "edit",
+                "context": {
+                  "target": "summary"
+                }
+              }
+            },
+            "flagAction": {
+              "event": {
+                "name": "flag",
+                "context": {
+                  "target": "summary"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

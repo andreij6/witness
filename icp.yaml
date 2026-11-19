@@ -1,0 +1,44 @@
+canisters:
+  - name: registry
+    build:
+      steps:
+        - type: script
+          commands:
+            - scripts/build-canister.sh witness-registry dev-attestation
+  - name: index_0
+    build:
+      steps:
+        - type: script
+          commands:
+            - scripts/build-canister.sh witness-index
+  - name: pages
+    build:
+      steps:
+        - type: script
+          commands:
+            - scripts/build-canister.sh witness-pages local-dev
+  - name: media_0
+    build:
+      steps:
+        - type: script
+          commands:
+            - scripts/build-canister.sh witness-media local-dev
+  - name: web
+    recipe:
+      type: "@dfinity/static-site@v0.4.2"
+      configuration:
+        build:
+          - scripts/stage-web.sh
+        dir: canisters/web/dist
+
+networks:
+  - name: local
+    mode: managed
+    gateway:
+      host: 127.0.0.1
+      port: 8090
+
+environments:
+  - name: local
+    network: local
+    canisters: [registry, index_0, pages, media_0, web]

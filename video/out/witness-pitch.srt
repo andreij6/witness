@@ -1,0 +1,119 @@
+1
+00:00:00,800 --> 00:00:03,819
+A hailstorm hits your street.
+
+2
+00:00:03,819 --> 00:00:06,005
+You post the photo...
+
+3
+00:00:06,005 --> 00:00:08,504
+and the replies roll in.
+
+4
+00:00:08,504 --> 00:00:11,523
+"AI." "Fake." "Photoshopped."
+
+5
+00:00:12,223 --> 00:00:15,296
+Anything can be faked in seconds now.
+
+6
+00:00:15,296 --> 00:00:22,855
+So real moments get dismissed, fakes get believed, and the metadata that could have helped?
+
+7
+00:00:22,855 --> 00:00:24,931
+Every platform strips it.
+
+8
+00:00:25,631 --> 00:00:27,065
+Meet Witness.
+
+9
+00:00:27,065 --> 00:00:29,823
+Proof, not just pictures.
+
+10
+00:00:30,523 --> 00:00:38,133
+Shoot in the Witness camera, and your phone's security chip seals the photo the instant you press the shutter:
+
+11
+00:00:38,133 --> 00:00:42,354
+the time, the place, and proof it came from a genuine device.
+
+12
+00:00:42,354 --> 00:00:43,253
+Even offline.
+
+13
+00:00:43,953 --> 00:00:53,866
+Before you share, on-device AI finds faces, license plates and house numbers to blur, and keeps your exact location private.
+
+14
+00:00:53,866 --> 00:00:56,184
+None of it leaves your phone.
+
+15
+00:00:56,884 --> 00:00:58,265
+Then post it anywhere.
+
+16
+00:00:58,265 --> 00:01:08,309
+An invisible watermark and visual fingerprints travel with the image, so even a cropped screenshot traces back to the sealed original, with every change listed.
+
+17
+00:01:09,009 --> 00:01:11,994
+Someone edits a license plate?
+
+18
+00:01:11,994 --> 00:01:15,973
+Witness highlights exactly what changed.
+
+19
+00:01:15,973 --> 00:01:17,565
+No proof at all?
+
+20
+00:01:17,565 --> 00:01:19,754
+It tells you that too.
+
+21
+00:01:19,754 --> 00:01:23,137
+Not proven isn't the same as fake.
+
+22
+00:01:23,837 --> 00:01:28,684
+And anyone can check, on any phone or computer, right in the browser.
+
+23
+00:01:28,684 --> 00:01:29,175
+No app.
+
+24
+00:01:29,175 --> 00:01:29,948
+No account.
+
+25
+00:01:30,648 --> 00:01:39,950
+For the moments that really matter, like a fender bender or a move-out, Case mode builds the report for you, and shares it with an end-to-end encrypted link.
+
+26
+00:01:40,650 --> 00:01:49,686
+Every proof is anchored on the Internet Computer, a neutral record no one can quietly rewrite.
+
+27
+00:01:49,686 --> 00:01:50,455
+Witness.
+
+28
+00:01:50,455 --> 00:01:51,512
+Capture it.
+
+29
+00:01:51,512 --> 00:01:52,281
+Seal it.
+
+30
+00:01:52,281 --> 00:01:53,147
+Prove it.

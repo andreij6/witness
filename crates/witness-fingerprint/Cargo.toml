@@ -1,0 +1,16 @@
+[package]
+name = "witness-fingerprint"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+witness-image = { workspace = true }
+witness-format = { workspace = true }
+
+[dev-dependencies]
+pdqhash = "=0.1.1"

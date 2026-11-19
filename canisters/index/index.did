@@ -1,0 +1,56 @@
+type Fingerprints = record {
+  shapes : vec record { nat8; blob };
+  quality : nat8;
+  grid : blob;
+  portrait : bool;
+};
+type Origins = record {
+  api : text;
+  app : text;
+  case : text;
+  site : text;
+  canister : text;
+};
+type PdqHit = record { distance : nat32; record_ix : nat64 };
+type PeerInit = record {
+  origins : opt Origins;
+  shard : nat8;
+  registry : principal;
+};
+type Posting = record {
+  pixel_hash : blob;
+  asset_hash : blob;
+  root_ix : opt nat64;
+  fingerprints : opt blob;
+  record_ix : nat64;
+  wm_root : nat64;
+};
+type ProbeResult = record {
+  pdq : vec PdqHit;
+  exact : vec nat64;
+  watermark : vec nat64;
+  indexed_upto : nat64;
+  truncated_candidates : bool;
+};
+type Status = record {
+  flags : vec text;
+  timers : vec TimerStatus;
+  metrics : vec record { text; nat64 };
+  version : text;
+  cycles : nat;
+  stable_bytes : nat64;
+};
+type TimerStatus = record {
+  name : text;
+  runs : nat64;
+  period_ns : nat64;
+  last_run_ns : nat64;
+};
+service : (PeerInit) -> {
+  derivatives : (nat64) -> (vec nat64) query;
+  erase : (nat64) -> ();
+  fingerprints : (nat64) -> (opt Fingerprints) query;
+  probe : (vec blob, vec nat64, vec blob) -> (ProbeResult) query;
+  put : (vec Posting) -> ();
+  status : () -> (Status) query;
+}

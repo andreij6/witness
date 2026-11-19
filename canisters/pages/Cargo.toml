@@ -1,0 +1,35 @@
+[package]
+name = "witness-pages"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+local-dev = []
+
+[dependencies]
+witness-canister-common = { workspace = true }
+witness-format = { workspace = true }
+candid = { workspace = true }
+ic-cdk = { workspace = true }
+ic-cdk-timers = { workspace = true }
+ic-stable-structures = { workspace = true }
+serde = { workspace = true }
+serde_bytes = { workspace = true }
+ic-certification = { workspace = true }
+ic-http-certification = { workspace = true }
+
+[dev-dependencies]
+candid_parser = { workspace = true }
+pocket-ic = { workspace = true }
+serde_cbor = "0.11.2"
+base64 = "0.22.1"
+ic-response-verification = "4.0.1"
+reqwest = { version = "0.13", default-features = false, features = ["blocking"] }

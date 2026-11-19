@@ -1,0 +1,36 @@
+[package]
+name = "witness-media"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+local-dev = []
+
+[dependencies]
+witness-canister-common = { workspace = true }
+witness-format = { workspace = true }
+candid = { workspace = true }
+ic-cdk = { workspace = true }
+ic-cdk-timers = { workspace = true }
+ic-stable-structures = { workspace = true }
+serde = { workspace = true }
+serde_bytes = { workspace = true }
+ic-certification = { workspace = true }
+ic-http-certification = { workspace = true }
+sha2 = { version = "0.10.9", default-features = false }
+
+[dev-dependencies]
+pocket-ic = { workspace = true }
+candid_parser = { workspace = true }
+ic-response-verification = "4.0.1"
+ed25519-dalek = { version = "2.2.0", default-features = false }
+p256 = { version = "0.13.2", default-features = false, features = ["ecdsa"] }
+reqwest = { version = "0.13", default-features = false, features = ["blocking"] }

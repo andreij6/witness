@@ -1,0 +1,105 @@
+type Anchored = record {
+  anchored_ns : nat64;
+  media_shard : nat8;
+  record_id : text;
+  record_ix : nat64;
+};
+type CertifiedKey = record {
+  key : KeyInfo;
+  certificate : blob;
+  smt_proof : blob;
+};
+type CertifiedRecord = record {
+  certificate : blob;
+  cose : blob;
+  claim : blob;
+  anchored_ns : nat64;
+  mmr_proof : vec blob;
+  c2pa_claim : blob;
+  media_shard : nat8;
+  leaf_count : nat64;
+  record_id : text;
+  record_ix : nat64;
+};
+type EnrollResult = variant { ok : Enrolled; err : text };
+type Enrolled = record { key_id : blob; c2pa_cert : blob; ca_cert : blob };
+type Enrollment = record {
+  key_id : opt blob;
+  chain : vec blob;
+  late : opt LateOpening;
+};
+type EraseAuth = variant { ii; device : blob };
+type EraseRequest = record { auth : EraseAuth; nonce : blob; record_id : text };
+type EraseResult = variant { ok; err : text };
+type Fresh = variant { Late; Fresh };
+type KeyInfo = record {
+  freshness : Fresh;
+  provisioning : Prov;
+  chain_serials : vec text;
+  key_id : blob;
+  enrolled_ns : nat64;
+  security : Security;
+  history : vec StatusChange;
+  pubkey : blob;
+  patch : nat32;
+  active_until_ns : nat64;
+};
+type KeyStatus = variant { Active; Suspended; Retired; Revoked };
+type LateOpening = record { install_nonce : blob; wall_ms : nat64 };
+type Prov = variant { Dev; Rkp; Factory };
+type RegistryInit = record {
+  media : vec principal;
+  pages : principal;
+  index : vec principal;
+};
+type Security = variant { Dev; Tee; StrongBox };
+type ShardInfo = record { open : bool; shard : nat8; canister : principal };
+type Shards = record { media : vec ShardInfo; index : vec ShardInfo };
+type Status = record {
+  flags : vec text;
+  timers : vec TimerStatus;
+  metrics : vec record { text; nat64 };
+  version : text;
+  cycles : nat;
+  stable_bytes : nat64;
+};
+type StatusChange = record { status : KeyStatus; since_ns : nat64 };
+type Submission = record {
+  cose : blob;
+  claim : blob;
+  fingerprints : opt blob;
+  c2pa_claim : blob;
+};
+type SubmitErr = variant {
+  malformed : text;
+  parent_unknown;
+  key_distrusted;
+  counter_reused;
+  bad_signature;
+  unknown_key;
+  retry_after_ns : nat64;
+  fingerprint_mismatch;
+  key_expired;
+  too_large;
+};
+type SubmitResult = variant { ok : Anchored; dup : Anchored; err : SubmitErr };
+type TimerStatus = record {
+  name : text;
+  runs : nat64;
+  period_ns : nat64;
+  last_run_ns : nat64;
+};
+service : (RegistryInit) -> {
+  by_capture : (nat64) -> (vec text) query;
+  ca_root : () -> (opt blob) query;
+  challenge : () -> (blob) query;
+  consistency : (nat64) -> (vec blob) query;
+  enroll : (Enrollment) -> (EnrollResult);
+  erase_mine : (EraseRequest) -> (EraseResult);
+  get : (text) -> (opt CertifiedRecord) query;
+  get_ix : (nat64) -> (opt CertifiedRecord) query;
+  get_key : (blob) -> (opt CertifiedKey) query;
+  shards : () -> (Shards, blob) query;
+  status : () -> (Status) query;
+  submit : (vec Submission) -> (vec SubmitResult);
+}

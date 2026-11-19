@@ -1,0 +1,12 @@
+[
+ {"id":"s01","style":"Slow, warm and intimate, like the opening of a documentary; a wry, knowing pause before reading the three replies flatly.","text":"A hailstorm hits your street. You post the photo... and the replies roll in. \"AI.\" \"Fake.\" \"Photoshopped.\""},
+ {"id":"s02","style":"Measured and serious, with quiet concern; let 'every platform strips it' land.","text":"Anything can be faked in seconds now. So real moments get dismissed, fakes get believed, and the metadata that could have helped? Every platform strips it."},
+ {"id":"s03","style":"Warm, assured, a gentle smile; slow down and give weight to 'Proof, not just pictures.'","text":"Meet Witness. Proof, not just pictures."},
+ {"id":"s04","style":"Calm, confident explanation with quiet wonder; unhurried.","text":"Shoot in the Witness camera, and your phone's security chip seals the photo the instant you press the shutter: the time, the place, and proof it came from a genuine device. Even offline."},
+ {"id":"s05","style":"Reassuring and kind, protective.","text":"Before you share, on-device AI finds faces, license plates and house numbers to blur, and keeps your exact location private. None of it leaves your phone."},
+ {"id":"s06","style":"Steady, confident, a touch of satisfaction.","text":"Then post it anywhere. An invisible watermark and visual fingerprints travel with the image, so even a cropped screenshot traces back to the sealed original, with every change listed."},
+ {"id":"s07","style":"Even and honest, with gravitas; slow on the last sentence.","text":"Someone edits a license plate? Witness highlights exactly what changed. No proof at all? It tells you that too. Not proven isn't the same as fake."},
+ {"id":"s08","style":"Open and welcoming, simple and clear.","text":"And anyone can check, on any phone or computer, right in the browser. No app. No account."},
+ {"id":"s09","style":"Grounded and empathetic, like a trusted advisor.","text":"For the moments that really matter, like a fender bender or a move-out, Case mode builds the report for you, and shares it with an end-to-end encrypted link."},
+ {"id":"s10","style":"Quiet authority building to a confident, satisfying close; deliberate pauses between the final three short sentences.","text":"Every proof is anchored on the Internet Computer, a neutral record no one can quietly rewrite. Witness. Capture it. Seal it. Prove it."}
+]

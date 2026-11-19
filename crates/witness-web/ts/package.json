@@ -1,0 +1,12 @@
+{
+  "name": "witness-web-ts-check",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "tsc -p .",
+    "smoke": "node smoke.mjs"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}

@@ -1,0 +1,24 @@
+[package]
+name = "witness-canister-common"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+witness-format = { workspace = true }
+candid = { workspace = true }
+ic-cdk = { workspace = true }
+ic-cdk-timers = { workspace = true }
+ic0 = "1.2.0"
+ic-stable-structures = { workspace = true }
+serde = { workspace = true }
+serde_bytes = { workspace = true }
+
+[dev-dependencies]
+candid_parser = { workspace = true }
+ed25519-dalek = { version = "2.2.0", default-features = false }
+p256 = { version = "0.13.2", default-features = false, features = ["ecdsa"] }

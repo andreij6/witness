@@ -1,0 +1,27 @@
+[package]
+name = "witness-attest"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+dev-attestation = []
+
+[dependencies]
+witness-format = { workspace = true }
+sha2 = { version = "0.10.9", default-features = false, features = ["oid"] }
+hmac = { version = "0.12.1", default-features = false }
+p256 = { version = "0.13.2", default-features = false, features = ["ecdsa"] }
+p384 = { version = "0.13.1", default-features = false, features = ["ecdsa"] }
+rsa = { version = "0.9.8", default-features = false }
+serde = { version = "1.0.219", default-features = false, features = ["alloc", "derive"] }
+serde_json = { version = "1.0.140", default-features = false, features = ["alloc"] }
+
+[dev-dependencies]
+p256 = { version = "0.13.2", default-features = false, features = ["ecdsa", "pkcs8"] }
+p384 = { version = "0.13.1", default-features = false, features = ["ecdsa", "pkcs8"] }
+rsa = { version = "0.9.8", default-features = false }

@@ -1,0 +1,17 @@
+[package]
+name = "witness-image"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+zune-jpeg = { version = "=0.5.15", default-features = false, features = ["std"] }
+zune-png = { version = "=0.5.2", default-features = false, features = ["std"] }
+zune-core = { version = "0.5", default-features = false, features = ["std"] }
+image-webp = { version = "=0.2.4", default-features = false }
+jpeg-encoder = { version = "=0.7.1", default-features = false, features = ["std"] }
+sha2 = { version = "0.10", default-features = false }

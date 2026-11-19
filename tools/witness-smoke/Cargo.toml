@@ -1,0 +1,29 @@
+[package]
+name = "witness-smoke"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish = false
+
+[lints]
+workspace = true
+
+[dependencies]
+witness-core = { workspace = true }
+witness-verdict = { workspace = true, features = ["testkit"] }
+witness-canister-common = { workspace = true }
+witness-android = { path = "../../crates/witness-android" }
+witness-proof = { workspace = true, features = ["registry"] }
+candid = { workspace = true }
+serde = { workspace = true }
+serde_bytes = { workspace = true }
+serde_json = "1.0.154"
+hex = "0.4.3"
+sha2 = "0.10.9"
+p256 = { version = "0.13.2", default-features = false, features = ["ecdsa"] }
+ic-agent = { version = "=0.45.0", default-features = false }
+ic-http-certification = { workspace = true }
+ic-response-verification = "4.0.1"
+futures = { version = "0.3", default-features = false, features = ["std", "executor"] }
+tokio = { version = "1", default-features = false, features = ["rt", "net", "time"] }

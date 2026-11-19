@@ -1,0 +1,343 @@
+{
+  "id": "rental_condition",
+  "title": "Rental condition",
+  "subtitle": "Room by room, move-in vs move-out",
+  "keywords": [
+    "rental",
+    "apartment",
+    "lease",
+    "landlord",
+    "tenant",
+    "deposit",
+    "move in",
+    "move out",
+    "inspection"
+  ],
+  "surfaceId": "report",
+  "slots": [
+    {
+      "id": "inspection",
+      "type": "choice",
+      "hint": "Move-in or move-out inspection",
+      "choices": [
+        "move_in",
+        "move_out"
+      ]
+    },
+    {
+      "id": "room",
+      "type": "choice",
+      "hint": "Room shown in the photos",
+      "choices": [
+        "kitchen",
+        "bathroom",
+        "bedroom",
+        "living_room"
+      ]
+    },
+    {
+      "id": "condition",
+      "type": "choice",
+      "hint": "Overall condition",
+      "choices": [
+        "good",
+        "fair",
+        "damaged"
+      ]
+    },
+    {
+      "id": "room_notes",
+      "type": "text",
+      "hint": "Marks, wear or damage per room",
+      "maxLength": 400
+    },
+    {
+      "id": "summary",
+      "type": "text",
+      "hint": "Neutral first-person summary of the inspection",
+      "maxLength": 600
+    },
+    {
+      "id": "ev_entry_wide",
+      "type": "flag",
+      "hint": "True when the evidence photos already cover this"
+    },
+    {
+      "id": "ev_floors",
+      "type": "flag",
+      "hint": "True when the evidence photos already cover this"
+    },
+    {
+      "id": "ev_walls",
+      "type": "flag",
+      "hint": "True when the evidence photos already cover this"
+    },
+    {
+      "id": "ev_appliances",
+      "type": "flag",
+      "hint": "True when the evidence photos already cover this"
+    },
+    {
+      "id": "ev_meters",
+      "type": "flag",
+      "hint": "True when the evidence photos already cover this"
+    }
+  ],
+  "messages": [
+    {
+      "version": "v0.9.1",
+      "createSurface": {
+        "surfaceId": "report",
+        "catalogId": "https://witness.app/a2ui/catalog/v1.json"
+      }
+    },
+    {
+      "version": "v0.9.1",
+      "updateComponents": {
+        "surfaceId": "report",
+        "components": [
+          {
+            "id": "root",
+            "component": "Column",
+            "children": [
+              "checklist",
+              "details",
+              "notes",
+              "summary"
+            ]
+          },
+          {
+            "id": "checklist",
+            "component": "EvidenceChecklist",
+            "title": "Still recommended",
+            "items": [
+              {
+                "key": "entry_wide",
+                "label": "Wide shot of each room",
+                "done": {
+                  "path": "/slots/ev_entry_wide"
+                },
+                "meta": {
+                  "path": "/evidence/entry_wide"
+                },
+                "action": {
+                  "event": {
+                    "name": "capture_for",
+                    "context": {
+                      "target": "entry_wide"
+                    }
+                  }
+                }
+              },
+              {
+                "key": "floors",
+                "label": "Floors and carpets",
+                "done": {
+                  "path": "/slots/ev_floors"
+                },
+                "meta": {
+                  "path": "/evidence/floors"
+                },
+                "action": {
+                  "event": {
+                    "name": "capture_for",
+                    "context": {
+                      "target": "floors"
+                    }
+                  }
+                }
+              },
+              {
+                "key": "walls",
+                "label": "Walls and ceilings",
+                "done": {
+                  "path": "/slots/ev_walls"
+                },
+                "meta": {
+                  "path": "/evidence/walls"
+                },
+                "action": {
+                  "event": {
+                    "name": "capture_for",
+                    "context": {
+                      "target": "walls"
+                    }
+                  }
+                }
+              },
+              {
+                "key": "appliances",
+                "label": "Appliances working",
+                "done": {
+                  "path": "/slots/ev_appliances"
+                },
+                "meta": {
+                  "path": "/evidence/appliances"
+                },
+                "action": {
+                  "event": {
+                    "name": "capture_for",
+                    "context": {
+                      "target": "appliances"
+                    }
+                  }
+                }
+              },
+              {
+                "key": "meters",
+                "label": "Meter readings",
+                "done": {
+                  "path": "/slots/ev_meters"
+                },
+                "meta": {
+                  "path": "/evidence/meters"
+                },
+                "action": {
+                  "event": {
+                    "name": "capture_for",
+                    "context": {
+                      "target": "meters"
+                    }
+                  }
+                }
+              }
+            ],
+            "flagAction": {
+              "event": {
+                "name": "flag",
+                "context": {
+                  "target": "checklist"
+                }
+              }
+            }
+          },
+          {
+            "id": "details",
+            "component": "GeneratedSurface",
+            "heading": "Inspection details",
+            "tag": "Generated form",
+            "children": [
+              "inspection",
+              "room",
+              "condition"
+            ]
+          },
+          {
+            "id": "inspection",
+            "component": "ChoiceRow",
+            "label": "Inspection",
+            "value": {
+              "path": "/slots/inspection"
+            },
+            "options": [
+              {
+                "value": "move_in",
+                "label": "Move-in"
+              },
+              {
+                "value": "move_out",
+                "label": "Move-out"
+              }
+            ]
+          },
+          {
+            "id": "room",
+            "component": "ChoiceRow",
+            "label": "Room",
+            "value": {
+              "path": "/slots/room"
+            },
+            "options": [
+              {
+                "value": "kitchen",
+                "label": "Kitchen"
+              },
+              {
+                "value": "bathroom",
+                "label": "Bath"
+              },
+              {
+                "value": "bedroom",
+                "label": "Bedroom"
+              },
+              {
+                "value": "living_room",
+                "label": "Living"
+              }
+            ]
+          },
+          {
+            "id": "condition",
+            "component": "ChoiceRow",
+            "label": "Condition",
+            "value": {
+              "path": "/slots/condition"
+            },
+            "options": [
+              {
+                "value": "good",
+                "label": "Good"
+              },
+              {
+                "value": "fair",
+                "label": "Fair"
+              },
+              {
+                "value": "damaged",
+                "label": "Damaged"
+              }
+            ]
+          },
+          {
+            "id": "notes",
+            "component": "SummaryDraft",
+            "title": "Room notes",
+            "text": {
+              "path": "/slots/room_notes"
+            },
+            "editAction": {
+              "event": {
+                "name": "edit",
+                "context": {
+                  "target": "room_notes"
+                }
+              }
+            },
+            "flagAction": {
+              "event": {
+                "name": "flag",
+                "context": {
+                  "target": "room_notes"
+                }
+              }
+            }
+          },
+          {
+            "id": "summary",
+            "component": "SummaryDraft",
+            "title": "Draft summary",
+            "text": {
+              "path": "/slots/summary"
+            },
+            "editAction": {
+              "event": {
+                "name": "edit",
+                "context": {
+                  "target": "summary"
+                }
+              }
+            },
+            "flagAction": {
+              "event": {
+                "name": "flag",
+                "context": {
+                  "target": "summary"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

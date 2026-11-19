@@ -1,0 +1,26 @@
+[package]
+name = "witness-core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+witness-format.workspace = true
+witness-image.workspace = true
+witness-fingerprint.workspace = true
+witness-match.workspace = true
+witness-c2pa.workspace = true
+witness-merkle.workspace = true
+witness-attest.workspace = true
+witness-watermark.workspace = true
+witness-verdict.workspace = true
+
+[dev-dependencies]
+witness-verdict = { workspace = true, features = ["testkit"] }
+
+[target.'cfg(target_arch = "wasm32")'.dev-dependencies]
+wasm-bindgen-test = "=0.3.80"

@@ -1,0 +1,3 @@
+-keep class app.witness.core.platform.assist.NanoSuggestion { *; }
+-keep class app.witness.core.platform.assist.NanoSlot { *; }
+-keep class app.witness.core.platform.assist.*_GeneratedProvider { *; }

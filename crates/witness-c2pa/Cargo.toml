@@ -1,0 +1,24 @@
+[package]
+name = "witness-c2pa"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+witness-format.workspace = true
+minicbor = { version = "2.3.1", default-features = false }
+sha2 = { version = "0.10.9", default-features = false }
+x509-cert = { version = "0.2.5", default-features = false }
+
+[dev-dependencies]
+p256 = { version = "0.13.2", default-features = false, features = ["ecdsa", "pkcs8"] }
+ed25519-dalek = { version = "2.2.0", default-features = false }
+
+[target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
+c2pa = { version = "0.90.23", default-features = false, features = ["rust_native_crypto"] }
+c2pa_cbor = "0.77.4"
+jpeg-encoder = { version = "=0.7.1", default-features = false, features = ["std"] }

@@ -1,0 +1,28 @@
+[package]
+name = "witness-web-seed"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+license = "Apache-2.0"
+publish = false
+
+[workspace]
+
+[dependencies]
+witness-core = { path = "../../../crates/witness-core" }
+witness-verdict = { path = "../../../crates/witness-verdict", features = ["testkit"] }
+witness-canister-common = { path = "../../../canisters/common" }
+witness-android = { path = "../../../crates/witness-android" }
+witness-web = { path = "../../../crates/witness-web", features = ["testkit"] }
+candid = "0.10.41"
+serde = { version = "1.0.219", features = ["derive"] }
+serde_bytes = "0.11.19"
+serde_json = "1.0.154"
+hex = "0.4.3"
+sha2 = "0.10.9"
+base64 = "0.22.1"
+p256 = { version = "0.13.2", default-features = false, features = ["ecdsa"] }
+futures = { version = "0.3", default-features = false, features = ["std", "executor"] }
+
+[profile.dev.package."*"]
+opt-level = 2
